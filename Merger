@@ -1,0 +1,29 @@
+from PIL import Image
+import numpy as np
+import cv2
+
+
+# resizing the images
+def resize_photo2():
+    p1 = Image.open('output1.jpg')
+    p2 = Image.open('output2.jpg')
+    p1_width = p1.size[1]
+    p1_height = p1.size[0]
+    img = p2.resize((p1_height, p1_width), Image.LANCZOS)
+    img.save('resized.jpg')
+
+
+def concatenation(x):
+    img1 = cv2.imread('output1.jpg')
+    img2 = cv2.imread('resized.jpg')
+    photo = 'final.jpg'
+
+    img = np.concatenate((img1, img2), axis=1)
+    cv2.imwrite(photo, img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+# Initial call
+resize_photo2()
+concatenation(1)
